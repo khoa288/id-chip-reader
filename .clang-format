@@ -1,0 +1,8 @@
+BasedOnStyle: Chromium
+UseTab: Always
+IndentWidth: 4
+TabWidth: 4
+AlignConsecutiveMacros: AcrossEmptyLines
+AlignConsecutiveAssignments: Consecutive
+AlignAfterOpenBracket: Align
+ColumnLimit: 100

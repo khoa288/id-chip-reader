@@ -1,0 +1,5 @@
+#pragma once
+
+#define DEBUG @DEBUG@
+#define USE_SAM @USE_SAM@
+#define USE_NFC @USE_NFC@
