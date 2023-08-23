@@ -44,11 +44,11 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	unsigned char encryptData[8];
 	des3_cbc_encrypt(encryptData, padData, 8, encryptSessionKey, 16, 0);
 
-	// Build DO�87�
+	// Build DO'87'
 	unsigned char dataObject87[11] = {0x87, 0x09, 0x01};
 	memcpy(&dataObject87[3], encryptData, 8);
 
-	// M = CmdHeader || DO�87�
+	// M = CmdHeader || DO'87'
 	unsigned char concatM[19];
 	memcpy(concatM, cmdHeader, 8);
 	memcpy(&concatM[8], dataObject87, 11);
@@ -66,7 +66,7 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	unsigned char mac[8];  // CC
 	des_mac3_checksum(32, mac, concatN, macSessionKey);
 
-	// Build DO�8E�
+	// Build DO'8E'
 	unsigned char dataObject8E[10] = {0x8E, 0x08};
 	memcpy(&dataObject8E[2], mac, 8);
 
@@ -93,11 +93,11 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 		return ret;
 	}
 
-	// Verify RAPDU CC by computing MAC of DO�99�
+	// Verify RAPDU CC by computing MAC of DO'99'
 	// Increment SSC with 1
 	IncreaseUnsignedCharByOne(sendSequenceCounter, 8);
 
-	// Concatenate SSC and DO�99�and add padding
+	// Concatenate SSC and DO'99' and add padding
 	unsigned char concatK[16];	// K
 	memcpy(concatK, sendSequenceCounter, 8);
 	memcpy(&concatK[8], protectedResponse, 4);
@@ -107,7 +107,7 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	unsigned char macCheck[8];	// CC'
 	des_mac3_checksum(16, macCheck, concatK, macSessionKey);
 
-	// Compare CC� with data of DO�8E� of RAPDU
+	// Compare CC� with data of DO'8E' of RAPDU
 	if (memcmp(macCheck, &protectedResponse[6], 8)) {
 		printf("Invalid Response APDU.\n");
 		DisconnectFeliCaCard();
@@ -128,10 +128,10 @@ int ProtectedReadBinaryAPDU(unsigned char cmdHeader[4],
 	memcpy(padCmdHeader, cmdHeader, 4);
 	PadByteArray(padCmdHeader, 4);
 
-	// Build DO�97�
+	// Build DO'97'
 	unsigned char dataObject97[3] = {0x97, 0x01, resLen};
 
-	// Concatenate CmdHeader and DO�97�
+	// Concatenate CmdHeader and DO'97'
 	unsigned char concatM[11];
 	memcpy(concatM, padCmdHeader, 8);
 	memcpy(&concatM[8], dataObject97, 3);
@@ -149,7 +149,7 @@ int ProtectedReadBinaryAPDU(unsigned char cmdHeader[4],
 	unsigned char mac[8];  // CC
 	des_mac3_checksum(24, mac, concatN, macSessionKey);
 
-	// Build DO�8E�
+	// Build DO'8E'
 	unsigned char dataObject8E[10] = {0x8E, 0x08};
 	memcpy(&dataObject8E[2], mac, 8);
 

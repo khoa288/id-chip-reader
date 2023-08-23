@@ -334,6 +334,10 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	// Open Image file
 	FILE* ptr;
 	fopen_s(&ptr, imageFilePath, "wb");
+	if (ptr == NULL) {
+		printf("Error opening file!\n");
+		return APP_ERROR;
+	}
 
 	// Read Binary First 256 bytes of DG2
 	unsigned char readBinaryDataGroup2CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
