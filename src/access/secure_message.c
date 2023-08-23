@@ -107,7 +107,7 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	unsigned char macCheck[8];	// CC'
 	des_mac3_checksum(16, macCheck, concatK, macSessionKey);
 
-	// Compare CC� with data of DO'8E' of RAPDU
+	// Compare CC' with data of DO'8E' of RAPDU
 	if (memcmp(macCheck, &protectedResponse[6], 8)) {
 		printf("Invalid Response APDU.\n");
 		DisconnectFeliCaCard();

@@ -11,7 +11,6 @@
 #include <access/bac_application.h>
 #include <chip_reader.h>
 #include <utils/reader.h>
-#include <utils/util.h>
 
 long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[]) {
 	long res = InitReader();
@@ -24,7 +23,6 @@ long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[
 	if (res != APP_SUCCESS) {
 		return res;
 	}
-	Delay(200);
 #endif	// #if USE_NFC
 
 	res = SelectApplication();

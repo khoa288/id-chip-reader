@@ -57,7 +57,7 @@ long InitReader(void) {
 	}
 
 	// Anti collision
-	Delay(100);
+	Delay(200);
 	return ret;
 }
 
@@ -69,6 +69,8 @@ long DetectCard(void) {
 		DisconnectFeliCaCard();
 		DisconnectReader();
 	}
+	// Anti collision
+	Delay(200);
 	return ret;
 }
 #endif	// #if USE_NFC
