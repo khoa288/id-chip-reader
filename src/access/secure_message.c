@@ -71,20 +71,20 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	memcpy(&dataObject8E[2], mac, 8);
 
 	// Construct protected APDU
-	unsigned char protectedADPU[27];
-	memcpy(protectedADPU, cmdHeader, 4);  // Header
-	protectedADPU[4] = 0x15;			  // Lc'
-	protectedADPU[5] = 0x87;
-	protectedADPU[6] = 0x09;
-	protectedADPU[7] = 0x01;					   // '87' L '01'
-	memcpy(&protectedADPU[8], encryptData, 8);	   // Encrypted data
-	memcpy(&protectedADPU[16], dataObject8E, 10);  // DO'8E'
-	protectedADPU[26] = 0x00;
+	unsigned char protectedAPDU[27];
+	memcpy(protectedAPDU, cmdHeader, 4);  // Header
+	protectedAPDU[4] = 0x15;			  // Lc'
+	protectedAPDU[5] = 0x87;
+	protectedAPDU[6] = 0x09;
+	protectedAPDU[7] = 0x01;					   // '87' L '01'
+	memcpy(&protectedAPDU[8], encryptData, 8);	   // Encrypted data
+	memcpy(&protectedAPDU[16], dataObject8E, 10);  // DO'8E'
+	protectedAPDU[26] = 0x00;
 
 	// Send protected APDU
 	unsigned char protectedResponse[16];  // RAPDU
 	unsigned long protectedResponseLength = sizeof(protectedResponse);
-	int ret = TransmitDataToCard(protectedADPU, sizeof(protectedADPU), protectedResponse,
+	int ret = TransmitDataToCard(protectedAPDU, sizeof(protectedAPDU), protectedResponse,
 								 &protectedResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Send protected APDU.\n");
@@ -154,18 +154,18 @@ int ProtectedReadBinaryAPDU(unsigned char cmdHeader[4],
 	memcpy(&dataObject8E[2], mac, 8);
 
 	// Construct protected APDU
-	unsigned char protectedADPU[19];
-	memcpy(protectedADPU, padCmdHeader, 4);	 // Header
-	protectedADPU[4] = 0x0D;				 // Lc'
-	memcpy(&protectedADPU[5], dataObject97, 3);
-	memcpy(&protectedADPU[8], dataObject8E, 10);
-	protectedADPU[18] = 0x00;
+	unsigned char protectedAPDU[19];
+	memcpy(protectedAPDU, padCmdHeader, 4);	 // Header
+	protectedAPDU[4] = 0x0D;				 // Lc'
+	memcpy(&protectedAPDU[5], dataObject97, 3);
+	memcpy(&protectedAPDU[8], dataObject8E, 10);
+	protectedAPDU[18] = 0x00;
 
 	// Send protected APDU
 	unsigned char res[285];
 	unsigned long protectedResponseLength = sizeof(res);
 	int ret =
-		TransmitDataToCard(protectedADPU, sizeof(protectedADPU), res, &protectedResponseLength);
+		TransmitDataToCard(protectedAPDU, sizeof(protectedAPDU), res, &protectedResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Send protected APDU.\n");
 		DisconnectFeliCaCard();
