@@ -93,12 +93,15 @@ $(document).ready(function(){initNavTree('chip__reader_8c.html',''); initResizab
 <div class="textblock"><code>#include &lt;<a class="el" href="bac__application_8h_source.html">access/bac_application.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="chip__reader_8h_source.html">chip_reader.h</a>&gt;</code><br />
 <code>#include &lt;<a class="el" href="reader_8h_source.html">utils/reader.h</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="util_8h_source.html">utils/util.h</a>&gt;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
 <tr class="memitem:a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chip__reader_8c.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a> (unsigned char mrzInformation[], unsigned char imageFilePath[])</td></tr>
 <tr class="memdesc:a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Reads data from an ID card chip using Basic Access Control (BAC) protocol.  <a href="chip__reader_8c.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">More...</a><br /></td></tr>
 <tr class="separator:a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac6d8c141f87cd600d68234bca55b0ce9"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="chip__reader_8c.html#ac6d8c141f87cd600d68234bca55b0ce9">ReadIdCardChipWithDocumentNumber</a> (unsigned char documentNumber[9], unsigned char imageFilePath[])</td></tr>
+<tr class="separator:ac6d8c141f87cd600d68234bca55b0ce9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Source file for chip reader functions. </p>
@@ -141,6 +144,34 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A long value representing the status code. APP_SUCCESS indicates successful reading of data from the ID card chip, otherwise an error code is returned. </dd></dl>
+
+</div>
+</div>
+<a id="ac6d8c141f87cd600d68234bca55b0ce9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6d8c141f87cd600d68234bca55b0ce9">&#9670;&nbsp;</a></span>ReadIdCardChipWithDocumentNumber()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long ReadIdCardChipWithDocumentNumber </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>documentNumber</em>[9], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>imageFilePath</em>[]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>

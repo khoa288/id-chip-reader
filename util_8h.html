@@ -110,6 +110,24 @@ Functions</h2></td></tr>
 <tr class="memitem:a069d09e19d4f7c18cc41ce28ddf04ff5"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a069d09e19d4f7c18cc41ce28ddf04ff5">PadByteArray</a> (unsigned char *byteArray, int startPosition)</td></tr>
 <tr class="memdesc:a069d09e19d4f7c18cc41ce28ddf04ff5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Pads a byte array with zeros from a specified starting position to the end.  <a href="util_8h.html#a069d09e19d4f7c18cc41ce28ddf04ff5">More...</a><br /></td></tr>
 <tr class="separator:a069d09e19d4f7c18cc41ce28ddf04ff5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a358263566bafa3c7a226aaa857d2714c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a358263566bafa3c7a226aaa857d2714c">CharToInt</a> (const char c)</td></tr>
+<tr class="memdesc:a358263566bafa3c7a226aaa857d2714c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a character to an integer.  <a href="util_8h.html#a358263566bafa3c7a226aaa857d2714c">More...</a><br /></td></tr>
+<tr class="separator:a358263566bafa3c7a226aaa857d2714c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad872d6330a7c86b097dbf6b271972d9f"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#ad872d6330a7c86b097dbf6b271972d9f">IntToChar</a> (const int i)</td></tr>
+<tr class="memdesc:ad872d6330a7c86b097dbf6b271972d9f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts an integer to a character.  <a href="util_8h.html#ad872d6330a7c86b097dbf6b271972d9f">More...</a><br /></td></tr>
+<tr class="separator:ad872d6330a7c86b097dbf6b271972d9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1020be6da1d708576007963dfa41da38"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a1020be6da1d708576007963dfa41da38">CheckDigitCalculate</a> (const unsigned char *data, int length)</td></tr>
+<tr class="memdesc:a1020be6da1d708576007963dfa41da38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the check digit of a string of data.  <a href="util_8h.html#a1020be6da1d708576007963dfa41da38">More...</a><br /></td></tr>
+<tr class="separator:a1020be6da1d708576007963dfa41da38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a14a836bb57f7878b2dd2396a8d33b885"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a14a836bb57f7878b2dd2396a8d33b885">ExpirationYearCalculate</a> (const int birthYear, const int currentYear)</td></tr>
+<tr class="memdesc:a14a836bb57f7878b2dd2396a8d33b885"><td class="mdescLeft">&#160;</td><td class="mdescRight">Calculates the expiration year of a document.  <a href="util_8h.html#a14a836bb57f7878b2dd2396a8d33b885">More...</a><br /></td></tr>
+<tr class="separator:a14a836bb57f7878b2dd2396a8d33b885"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a847af9c944a34795639d0c8762dce122"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a847af9c944a34795639d0c8762dce122">CharToYear</a> (const unsigned char year[2], const int currentYear)</td></tr>
+<tr class="memdesc:a847af9c944a34795639d0c8762dce122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a string of 2 characters to an integer representing a year.  <a href="util_8h.html#a847af9c944a34795639d0c8762dce122">More...</a><br /></td></tr>
+<tr class="separator:a847af9c944a34795639d0c8762dce122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a95c2b3bbc533a6995b707ce9f821a30b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a95c2b3bbc533a6995b707ce9f821a30b">MrzInformationGenerate</a> (const unsigned char documentNumber[9], const unsigned char birthDate[4], unsigned char mrzInformation[24], int currentYear)</td></tr>
+<tr class="memdesc:a95c2b3bbc533a6995b707ce9f821a30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the MRZ information of a document.  <a href="util_8h.html#a95c2b3bbc533a6995b707ce9f821a30b">More...</a><br /></td></tr>
+<tr class="separator:a95c2b3bbc533a6995b707ce9f821a30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file for utility functions. </p>
@@ -130,6 +148,109 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a358263566bafa3c7a226aaa857d2714c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a358263566bafa3c7a226aaa857d2714c">&#9670;&nbsp;</a></span>CharToInt()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharToInt </td>
+          <td>(</td>
+          <td class="paramtype">const char&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a character to an integer. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">c</td><td>The character to be converted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The integer value of the character. </dd></dl>
+
+</div>
+</div>
+<a id="a847af9c944a34795639d0c8762dce122"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a847af9c944a34795639d0c8762dce122">&#9670;&nbsp;</a></span>CharToYear()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CharToYear </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char&#160;</td>
+          <td class="paramname"><em>year</em>[2], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>currentYear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts a string of 2 characters to an integer representing a year. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">year</td><td>Pointer to an unsigned char array containing the year. </td></tr>
+    <tr><td class="paramname">currentYear</td><td>The current year. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The year represented by the string. </dd></dl>
+
+</div>
+</div>
+<a id="a1020be6da1d708576007963dfa41da38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1020be6da1d708576007963dfa41da38">&#9670;&nbsp;</a></span>CheckDigitCalculate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int CheckDigitCalculate </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char *&#160;</td>
+          <td class="paramname"><em>data</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>length</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the check digit of a string of data. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">data</td><td>Pointer to an unsigned char array containing the data. </td></tr>
+    <tr><td class="paramname">length</td><td>Length of the data. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The check digit of the data. </dd></dl>
+
+</div>
+</div>
 <a id="a0f42053ae047dacc639c1771fe5fe074"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0f42053ae047dacc639c1771fe5fe074">&#9670;&nbsp;</a></span>Delay()</h2>
 
@@ -150,6 +271,122 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">millisecond</td><td>The number of milliseconds to delay the program. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a14a836bb57f7878b2dd2396a8d33b885"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a14a836bb57f7878b2dd2396a8d33b885">&#9670;&nbsp;</a></span>ExpirationYearCalculate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ExpirationYearCalculate </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>birthYear</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>currentYear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Calculates the expiration year of a document. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">birthYear</td><td>The birth year of the document holder. </td></tr>
+    <tr><td class="paramname">currentYear</td><td>The current year. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The expiration year of the document. </dd></dl>
+
+</div>
+</div>
+<a id="ad872d6330a7c86b097dbf6b271972d9f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad872d6330a7c86b097dbf6b271972d9f">&#9670;&nbsp;</a></span>IntToChar()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char IntToChar </td>
+          <td>(</td>
+          <td class="paramtype">const int&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Converts an integer to a character. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>The integer to be converted. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The character value of the integer. </dd></dl>
+
+</div>
+</div>
+<a id="a95c2b3bbc533a6995b707ce9f821a30b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a95c2b3bbc533a6995b707ce9f821a30b">&#9670;&nbsp;</a></span>MrzInformationGenerate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void MrzInformationGenerate </td>
+          <td>(</td>
+          <td class="paramtype">const unsigned char&#160;</td>
+          <td class="paramname"><em>documentNumber</em>[9], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const unsigned char&#160;</td>
+          <td class="paramname"><em>birthDate</em>[4], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>mrzInformation</em>[24], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>currentYear</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Generates the MRZ information of a document. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">documentNumber</td><td>Pointer to an unsigned char array containing the document number. </td></tr>
+    <tr><td class="paramname">birthDate</td><td>Pointer to an unsigned char array containing the birth date in YYMMDD format. </td></tr>
+    <tr><td class="paramname">mrzInformation</td><td>Pointer to an unsigned char array where the MRZ information will be stored. </td></tr>
+    <tr><td class="paramname">currentYear</td><td>The current year. </td></tr>
   </table>
   </dd>
 </dl>

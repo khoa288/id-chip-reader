@@ -96,12 +96,29 @@ $(document).ready(function(){initNavTree('chip__reader_8h_source.html',''); init
 <div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="keywordtype">long</span> <a class="code" href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> mrzInformation[], <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> imageFilePath[]);</div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160; </div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;}</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160; </div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// #ifndef CHIP_READER_H_</span></div>
-<div class="ttc" id="achip__reader_8h_html_a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><div class="ttname"><a href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a></div><div class="ttdeci">long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[])</div><div class="ttdoc">Reads data from an ID card chip using Basic Access Control (BAC) protocol.</div><div class="ttdef"><b>Definition:</b> chip_reader.c:15</div></div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">/*</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment"> * @brief Reads data with only the document number instead of MRZ information.</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment"> * Given the document number, this function derives the holder&#39;s birth year and test possible birth</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;<span class="comment"> * dates to find the correct one.</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment"> * @param[in] documentNumber The document number as an array of 9 unsigned chars.</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment"> * @param[out] imageFilePath The file path to the image file that will be created after reading data</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="comment"> * from the ID card chip.</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment"> *</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment"> * @return A long value representing the status code. APP_SUCCESS indicates successful reading of</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment"> * data from the ID card chip, otherwise an error code is returned.</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment"> */</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="keywordtype">long</span> <a class="code" href="chip__reader_8h.html#ac6d8c141f87cd600d68234bca55b0ce9">ReadIdCardChipWithDocumentNumber</a>(<span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> documentNumber[9],</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;                                      <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> imageFilePath[]);</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160; </div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="preprocessor">#ifdef __cplusplus</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160; </div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif  </span><span class="comment">// #ifndef CHIP_READER_H_</span></div>
+<div class="ttc" id="achip__reader_8h_html_a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><div class="ttname"><a href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a></div><div class="ttdeci">long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[])</div><div class="ttdoc">Reads data from an ID card chip using Basic Access Control (BAC) protocol.</div><div class="ttdef"><b>Definition:</b> chip_reader.c:16</div></div>
+<div class="ttc" id="achip__reader_8h_html_ac6d8c141f87cd600d68234bca55b0ce9"><div class="ttname"><a href="chip__reader_8h.html#ac6d8c141f87cd600d68234bca55b0ce9">ReadIdCardChipWithDocumentNumber</a></div><div class="ttdeci">long ReadIdCardChipWithDocumentNumber(unsigned char documentNumber[9], unsigned char imageFilePath[])</div><div class="ttdef"><b>Definition:</b> chip_reader.c:74</div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
