@@ -6,6 +6,7 @@ var bac__application_8h =
     [ "InitReader", "bac__application_8h.html#a1bbebaede55c88e5a54a4906da0a2bee", null ],
     [ "KeySeedCalculate", "bac__application_8h.html#aaa85ce1626d8c0ab3a551fedc59c6c54", null ],
     [ "ReadDG1", "bac__application_8h.html#a508b92082f67de4e66544830c908bf6f", null ],
+    [ "ReadDG13", "bac__application_8h.html#a1072f1c2a07c03514dd65f91cb5da54e", null ],
     [ "ReadDG2", "bac__application_8h.html#a0439408f14e7f2c0bababe6bbe873dd0", null ],
     [ "ReadEFCOM", "bac__application_8h.html#a657527ca2b7aace969031a53de151b32", null ],
     [ "SelectApplication", "bac__application_8h.html#ac0bde8027316769a7eddd498c72acb5d", null ],

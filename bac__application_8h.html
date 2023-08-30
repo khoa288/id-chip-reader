@@ -121,7 +121,6 @@ Functions</h2></td></tr>
 <tr class="memdesc:acf0105df61e01468deb7e01c9c3c3301"><td class="mdescLeft">&#160;</td><td class="mdescRight">Performs the EXTERNAL AUTHENTICATE operation with the smart card.  <a href="bac__application_8h.html#acf0105df61e01468deb7e01c9c3c3301">More...</a><br /></td></tr>
 <tr class="separator:acf0105df61e01468deb7e01c9c3c3301"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a657527ca2b7aace969031a53de151b32"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bac__application_8h.html#a657527ca2b7aace969031a53de151b32">ReadEFCOM</a> (unsigned char sessionKeyEncrypt[16], unsigned char sessionKeyMac[16], unsigned char sendSequenceCounter[8])</td></tr>
-<tr class="memdesc:a657527ca2b7aace969031a53de151b32"><td class="mdescLeft">&#160;</td><td class="mdescRight">External Authenticate to get Session Encrypt Key, MAC Key, and Send Sequence Counter for Secure Messaging.  <a href="bac__application_8h.html#a657527ca2b7aace969031a53de151b32">More...</a><br /></td></tr>
 <tr class="separator:a657527ca2b7aace969031a53de151b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a508b92082f67de4e66544830c908bf6f"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bac__application_8h.html#a508b92082f67de4e66544830c908bf6f">ReadDG1</a> (unsigned char sessionKeyEncrypt[16], unsigned char sessionKeyMac[16], unsigned char sendSequenceCounter[8])</td></tr>
 <tr class="memdesc:a508b92082f67de4e66544830c908bf6f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read DG1.COM to get basic holder's information.  <a href="bac__application_8h.html#a508b92082f67de4e66544830c908bf6f">More...</a><br /></td></tr>
@@ -129,6 +128,8 @@ Functions</h2></td></tr>
 <tr class="memitem:a0439408f14e7f2c0bababe6bbe873dd0"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bac__application_8h.html#a0439408f14e7f2c0bababe6bbe873dd0">ReadDG2</a> (unsigned char sessionKeyEncrypt[16], unsigned char sessionKeyMac[16], unsigned char sendSequenceCounter[8], unsigned char imageFilePath[])</td></tr>
 <tr class="memdesc:a0439408f14e7f2c0bababe6bbe873dd0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Read DG2.COM to get holder's image.  <a href="bac__application_8h.html#a0439408f14e7f2c0bababe6bbe873dd0">More...</a><br /></td></tr>
 <tr class="separator:a0439408f14e7f2c0bababe6bbe873dd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1072f1c2a07c03514dd65f91cb5da54e"><td class="memItemLeft" align="right" valign="top">long&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="bac__application_8h.html#a1072f1c2a07c03514dd65f91cb5da54e">ReadDG13</a> (unsigned char sessionKeyEncrypt[16], unsigned char sessionKeyMac[16], unsigned char sendSequenceCounter[8])</td></tr>
+<tr class="separator:a1072f1c2a07c03514dd65f91cb5da54e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Header file for Basic Access Control (BAC) application functions. </p>
@@ -348,7 +349,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read DG1.COM to get basic holder's information. </p>
-<p>Reads the DG1 data group from the smart card, which contains basic information about the holder, using secure messaging with provided session keys and send sequence counter. Returns a status code indicating success or failure in reading DG1 data group.</p>
+<p>Reads the DG1 data group from the smart card, which contains basic information about the holder.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sessionKeyEncrypt</td><td>The session encryption key as an array of 16 unsigned chars for secure messaging. </td></tr>
@@ -358,6 +359,40 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>A long value representing the status code. APP_SUCCESS indicates successful reading, otherwise an error code is returned. </dd></dl>
+
+</div>
+</div>
+<a id="a1072f1c2a07c03514dd65f91cb5da54e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1072f1c2a07c03514dd65f91cb5da54e">&#9670;&nbsp;</a></span>ReadDG13()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">long ReadDG13 </td>
+          <td>(</td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>sessionKeyEncrypt</em>[16], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>sessionKeyMac</em>[16], </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">unsigned char&#160;</td>
+          <td class="paramname"><em>sendSequenceCounter</em>[8]&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
 
 </div>
 </div>
@@ -400,7 +435,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Read DG2.COM to get holder's image. </p>
-<p>Reads the DG2 data group from the smart card, which contains the holder's image (in JPEG format), using secure messaging with provided session keys and send sequence counter. Saves the retrieved image as a JPEG file named "face_image.jpeg" in the current working directory. Returns a status code indicating success or failure in reading DG2 data group and saving the image file.</p>
+<p>Reads the DG2 data group from the smart card, which contains the holder's image (in JPEG format). Saves the retrieved image as a JPEG file in the imageFilePath.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">sessionKeyEncrypt</td><td>The session encryption key as an array of 16 unsigned chars for secure messaging. </td></tr>
@@ -445,19 +480,6 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>External Authenticate to get Session Encrypt Key, MAC Key, and Send Sequence Counter for Secure Messaging. </p>
-<p>Performs external authentication with the smart indicating success or failure in performing external authentication.</p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramdir">[in]</td><td class="paramname">getChallengeResponse</td><td>The received challenge as an array of 10 unsigned chars used in authentication. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">encryptKey</td><td>The encryption key as an array of 16 unsigned chars used in authentication. </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">macKey</td><td>The MAC key as an array of 16 unsigned chars used in authentication get basic chip's information.</td></tr>
-  </table>
-  </dd>
-</dl>
-<p>Reads the EF.COM data group from card.</p>
-<dl class="section return"><dt>Returns</dt><dd>A long value representing the status code. APP_SUCCESS indicates successful reading, otherwise an error code is returned. </dd></dl>
 
 </div>
 </div>
