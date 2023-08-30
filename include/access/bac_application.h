@@ -118,24 +118,21 @@ long ExternalAuthenticate(unsigned char getChallengeResponse[10],
 						  unsigned char sessionKeyMac[16],
 						  unsigned char sendSequenceCounter[8]);
 
-/**
-* @brief External Authenticate to get Session Encrypt Key, MAC Key, and Send Sequence Counter for
-Secure Messaging.
-*
-* Performs external authentication with the smart indicating success or failure in performing
-external authentication.
-*
-* @param[in] getChallengeResponse The received challenge as an array of 10 unsigned chars used in
-authentication.
-* @param[in] encryptKey The encryption key as an array of 16 unsigned chars used in authentication.
-* @param[in] macKey The MAC key as an array of 16 unsigned chars used in authentication get basic
-chip's information.
+/*
+* @brief Read EF.COM to get basic chip's information.
  *
- * Reads the EF.COM data group from card.
+ * Reads the EF.COM file from the smart card, which contains the LDS Version, Tag list, and DG list.
+ *
+ * @param[in] sessionKeyEncrypt The session encryption key as an array of 16 unsigned chars for
+ secure messaging.
+ * @param[in] sessionKeyMac The session MAC key as an array of 16 unsigned chars for secure
+ messaging.
+ * @param[in,out] sendSequenceCounter The send sequence counter as an array of 8 unsigned chars for
+ secure messaging, updated after each command/response exchange with the smart card.
  *
  * @return A long value representing the status code. APP_SUCCESS indicates successful reading,
 		   otherwise an error code is returned.
- */
+*/
 long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 			   unsigned char sessionKeyMac[16],
 			   unsigned char sendSequenceCounter[8]);
@@ -143,10 +140,7 @@ long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 /**
  * @brief Read DG1.COM to get basic holder's information.
  *
- * Reads the DG1 data group from the smart card, which contains basic information about the holder,
- * using secure messaging with provided session keys and send sequence counter. Returns a status
- code
- * indicating success or failure in reading DG1 data group.
+ * Reads the DG1 data group from the smart card, which contains basic information about the holder.
  *
  * @param[in] sessionKeyEncrypt The session encryption key as an array of 16 unsigned chars for
  secure messaging.
@@ -165,11 +159,8 @@ long ReadDG1(unsigned char sessionKeyEncrypt[16],
 /**
 * @brief Read DG2.COM to get holder's image.
 *
-* Reads the DG2 data group from the smart card, which contains the holder's image (in JPEG format),
-* using secure messaging with provided session keys and send sequence counter. Saves the retrieved
-* image as a JPEG file named "face_image.jpeg" in the current working directory. Returns a status
-* code indicating success or failure in reading DG2
-* data group and saving the image file.
+* Reads the DG2 data group from the smart card, which contains the holder's image (in JPEG format).
+Saves the retrieved image as a JPEG file in the imageFilePath.
 *
 * @param[in] sessionKeyEncrypt The session encryption key as an array of 16 unsigned chars for
 secure messaging.
@@ -186,6 +177,24 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 			 unsigned char sessionKeyMac[16],
 			 unsigned char sendSequenceCounter[8],
 			 unsigned char imageFilePath[]);
+
+/*
+* @brief Read DG13.COM to get holder's extra information.
+*
+* Reads the DG13 data group from the smart card, which contains extra information about the holder.
+*
+* @param[in] sessionKeyEncrypt The session encryption key as an array of 16 unsigned chars for
+secure messaging.
+* @param[in] sessionKeyMac The session MAC key as an array of 16 unsigned chars for secure
+messaging.
+* @param[in,out] sendSequenceCounter The send sequence counter as an array of 8 unsigned chars for
+*
+* @return A long value representing the status code. APP_SUCCESS indicates successful reading,
+otherwise an error code is returned.
+*/
+long ReadDG13(unsigned char sessionKeyEncrypt[16],
+			  unsigned char sessionKeyMac[16],
+			  unsigned char sendSequenceCounter[8]);
 
 #ifdef __cplusplus
 }

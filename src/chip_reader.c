@@ -65,6 +65,11 @@ long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[
 		goto end;
 	}
 
+	res = ReadDG13(sessionKeyEncrypt, sessionKeyMac, sendSequenceCounter);
+	if (res != APP_SUCCESS) {
+		goto end;
+	}
+
 end:
 	DisconnectFeliCaCard();
 	DisconnectReader();
@@ -109,9 +114,23 @@ long ReadIdCardChipWithDocumentNumber(unsigned char documentNumber[9],
 			int res = ExternalAuthenticate(getChallengeResponse, encryptKey, macKey,
 										   sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
 			if (res == 0) {
-				ReadEFCOM(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
-				ReadDG1(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
-				ReadDG2(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter, imageFilePath);
+				res = ReadEFCOM(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
+				if (res != APP_SUCCESS) {
+					goto end;
+				}
+				res = ReadDG1(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
+				if (res != APP_SUCCESS) {
+					goto end;
+				}
+				res =
+					ReadDG2(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter, imageFilePath);
+				if (res != APP_SUCCESS) {
+					goto end;
+				}
+				res = ReadDG13(sessionKeyEncrypt, sessionKeyMac, sendSenquenceCounter);
+				if (res != APP_SUCCESS) {
+					goto end;
+				}
 				break;
 			}
 		}

@@ -237,6 +237,7 @@ long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 	printf("\n");
 #endif
 
+	printf("\nEF.COM");
 	printf("\n> LDS Version number: ");
 	for (int i = 0; i < 4; i++) {
 		printf("%c", readBinaryEFCOMResponse[i + 5]);
@@ -286,6 +287,7 @@ long ReadDG1(unsigned char sessionKeyEncrypt[16],
 	printf("\n");
 #endif	// #if DEBUG
 
+	printf("\nData Group 1");
 	printf("\n> Document code: ");
 	for (int i = 0; i < 2; i++) {
 		printf("%c", readBinaryDataGroup1Response[i + 5]);
@@ -359,11 +361,19 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256,
 								  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
 								  sessionKeyMac);
+
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Read Binary of DG2.\n");
 		fclose(ptr);
 		return ret;
 	}
+
+#if DEBUG
+	printf("DG2: ");
+	for (int i = 0; i < 256; i++) {
+		printf("%02X ", tempDataGroup2Buffer[i]);
+	}
+#endif	// #if DEBUG
 
 	// Find jpeg header
 	int jpegHeader = 0;
@@ -388,6 +398,13 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 			fclose(ptr);
 			return ret;
 		}
+
+#if DEBUG
+		for (int i = 0; i < 256; i++) {
+			printf("%02X ", tempDataGroup2Buffer[i]);
+		}
+#endif	// #if DEBUG
+
 		fwrite(&tempDataGroup2Buffer[0], 256, 1, ptr);
 	}
 
@@ -401,10 +418,132 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 		fclose(ptr);
 		return ret;
 	}
+
+#if DEBUG
+	for (int i = 0; i < dataGroup2Buffer[3]; i++) {
+		printf("%02X ", tempDataGroup2Buffer[i]);
+	}
+	printf("\n");
+#endif	// #if DEBUG
+
 	fwrite(&tempDataGroup2Buffer[0], dataGroup2Buffer[3], 1, ptr);
+	printf("\nData Group 2");
+	printf("\n> Holder's portrait image is saved in %s.\n", imageFilePath);
 
 	// Close Image file
 	fclose(ptr);
+
+	return APP_SUCCESS;
+}
+
+long ReadDG13(unsigned char sessionKeyEncrypt[16],
+			  unsigned char sessionKeyMac[16],
+			  unsigned char sendSequenceCounter[8]) {
+	// Construct protected APDU command to Select DG13
+	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x0D
+	static unsigned char selectDataGroup13CmdData[2] = {0x01, 0x0D};
+	int ret = ProtectedSelectAPDU(selectDataGroup13CmdData, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Select DG13.\n");
+		return ret;
+	}
+
+	// Read Binary First 256 bytes of DG13
+	unsigned char readBinaryDataGroup13CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
+	unsigned char readBinaryDataGroup13Response[512];
+	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup13CmdHeader, (unsigned char)256,
+								  readBinaryDataGroup13Response, sendSequenceCounter,
+								  sessionKeyEncrypt, sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of DG13.\n");
+		return ret;
+	}
+
+	// Read Binary remaining bytes of DG13
+	readBinaryDataGroup13CmdHeader[2] = 0x01;
+	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup13CmdHeader, readBinaryDataGroup13Response[3],
+								  &readBinaryDataGroup13Response[256], sendSequenceCounter,
+								  sessionKeyEncrypt, sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of DG13.\n");
+		return ret;
+	}
+
+#if DEBUG
+	printf("DG13:\n");
+	for (int i = 0; i < 256; i++) {
+		printf("%02X ", readBinaryDataGroup13Response[i]);
+	}
+	for (int i = 256; i < 256 + readBinaryDataGroup13Response[3]; i++) {
+		printf("%02X ", readBinaryDataGroup13Response[i]);
+	}
+	printf("\n");
+#endif	// #if DEBUG
+
+	printf("\nData Group 13 (UTF-8)");
+	printf("\n> Card ID: ");
+	for (int i = 0; i < 12; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 30]);
+	}
+	printf("\n> Full name: ");
+	for (int i = 0; i < 24; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 49]);
+	}
+	printf("\n> Date of birth: ");
+	for (int i = 0; i < 10; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 80]);
+	}
+	printf("\n> Gender: ");
+	for (int i = 0; i < 4; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 97]);
+	}
+	printf("\n> Nationality: ");
+	for (int i = 0; i < 10; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 108]);
+	}
+	printf("\n> Ethnicity: ");
+	for (int i = 0; i < 4; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 125]);
+	}
+	printf("\n> Religion: ");
+	for (int i = 0; i < 6; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 136]);
+	}
+	printf("\n> Place of origin: ");
+	for (int i = 0; i < 38; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 149]);
+	}
+	printf("\n> Place of residence: ");
+	for (int i = 0; i < 66; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 193]);
+	}
+	printf("\n> Personal identification: ");
+	for (int i = 0; i < 46; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 266]);
+	}
+	printf("\n> Issued date: ");
+	for (int i = 0; i < 10; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 319]);
+	}
+	printf("\n> Expiration date: ");
+	for (int i = 0; i < 10; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 336]);
+	}
+	printf("\n> Father's name: ");
+	for (int i = 0; i < 19; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 355]);
+	}
+	printf("\n> Mother's name: ");
+	for (int i = 0; i < 19; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 378]);
+	}
+	printf("\n> Old number: ");
+	for (int i = 0; i < 12; i++) {
+		printf("%c", readBinaryDataGroup13Response[i + 416]);
+	}
+
+	printf("\n");
 
 	return APP_SUCCESS;
 }
