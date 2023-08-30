@@ -76,8 +76,8 @@ long DetectCard(void) {
 long SelectApplication(void) {
 	// (AID for BAC application)
 	// Expected response APDU : 0x90 || 0x00
-	const unsigned char selectApplicationCommand[] = {0x00, 0xA4, 0x04, 0x00, 0x07, 0xA0,
-													  0x00, 0x00, 0x02, 0x47, 0x10, 0x01};
+	unsigned char selectApplicationCommand[] = {0x00, 0xA4, 0x04, 0x00, 0x07, 0xA0,
+												0x00, 0x00, 0x02, 0x47, 0x10, 0x01};
 	unsigned char selectApplicationResponse[2];
 	unsigned long selectApplicationResponseLength = sizeof(selectApplicationResponse);
 	long ret = TransmitDataToCard(selectApplicationCommand, sizeof(selectApplicationCommand),
@@ -91,7 +91,7 @@ long SelectApplication(void) {
 
 long GetChallenge(unsigned char getChallengeResponse[10], int getChallengeResponseSize) {
 	// Expected response APDU: RND.IC (8 bytes) || 0x90 || 0x00
-	const unsigned char getChallengeCommand[] = {0x00, 0x84, 0x00, 0x00, 0x08};
+	unsigned char getChallengeCommand[] = {0x00, 0x84, 0x00, 0x00, 0x08};
 	long ret = TransmitDataToCard(getChallengeCommand, sizeof(getChallengeCommand),
 								  getChallengeResponse, &getChallengeResponseSize);
 	if (ret != APP_SUCCESS) {
@@ -210,7 +210,7 @@ long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 			   unsigned char sendSequenceCounter[8]) {
 	// Construct protected APDU command to Select EF.COM
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x1E
-	const unsigned char selectEFCOMCmdData[2] = {0x01, 0x1E};
+	unsigned char selectEFCOMCmdData[2] = {0x01, 0x1E};
 	int ret = ProtectedSelectAPDU(selectEFCOMCmdData, sendSequenceCounter, sessionKeyEncrypt,
 								  sessionKeyMac);
 	if (ret != APP_SUCCESS) {
@@ -220,7 +220,7 @@ long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 
 	// Read Binary 26 bytes of EF.COM
 	// Unprotected command APDU: 0x00, 0xB0, 0x00, 0x00, 0x04
-	const unsigned char readBinaryEFCOMCmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
+	unsigned char readBinaryEFCOMCmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
 	unsigned char readBinaryEFCOMResponse[32];
 	ret = ProtectedReadBinaryAPDU(readBinaryEFCOMCmdHeader, 0x1A, readBinaryEFCOMResponse,
 								  sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
@@ -259,7 +259,7 @@ long ReadDG1(unsigned char sessionKeyEncrypt[16],
 			 unsigned char sendSequenceCounter[8]) {
 	// Construct protected APDU command to Select DG1
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x01
-	const unsigned char selectDataGroup1CmdData[2] = {0x01, 0x01};
+	unsigned char selectDataGroup1CmdData[2] = {0x01, 0x01};
 	int ret = ProtectedSelectAPDU(selectDataGroup1CmdData, sendSequenceCounter, sessionKeyEncrypt,
 								  sessionKeyMac);
 	if (ret != APP_SUCCESS) {
@@ -269,11 +269,10 @@ long ReadDG1(unsigned char sessionKeyEncrypt[16],
 
 	// Read Binary of 95 bytes of DG1
 	// Unprotected command APDU: 0x00, 0xB0, 0x00, 0x00, 0x04
-	const unsigned char readBinaryDataGroup1CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
+	unsigned char readBinaryDataGroup1CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
 	unsigned char readBinaryDataGroup1Response[96];	 // 95 bytes with padding
-	int ret =
-		ProtectedReadBinaryAPDU(readBinaryDataGroup1CmdHeader, 0x5F, readBinaryDataGroup1Response,
-								sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup1CmdHeader, 0x5F, readBinaryDataGroup1Response,
+								  sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Read Binary of DG1.\n");
 		return ret;
@@ -337,7 +336,7 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 			 unsigned char imageFilePath[]) {
 	// Construct protected APDU command to Select DG2
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x02
-	const unsigned char selectDataGroup2CmdData[2] = {0x01, 0x02};
+	unsigned char selectDataGroup2CmdData[2] = {0x01, 0x02};
 	int ret = ProtectedSelectAPDU(selectDataGroup2CmdData, sendSequenceCounter, sessionKeyEncrypt,
 								  sessionKeyMac);
 	if (ret != APP_SUCCESS) {
@@ -379,9 +378,8 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	memcpy(dataGroup2Buffer, tempDataGroup2Buffer, 4);
 
 	// Read Binary remaining bytes of DG2
-	int indexDG2;
-	for (indexDG2 = 1; indexDG2 < dataGroup2Buffer[2]; indexDG2++) {
-		readBinaryDataGroup2CmdHeader[2] = indexDG2;
+	for (int i = 1; i < dataGroup2Buffer[2]; i++) {
+		readBinaryDataGroup2CmdHeader[2] = i;
 		ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256,
 									  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
 									  sessionKeyMac);
@@ -394,7 +392,7 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	}
 
 	// Read Binary last bytes of DG2
-	readBinaryDataGroup2CmdHeader[2] = indexDG2;
+	readBinaryDataGroup2CmdHeader[2] = dataGroup2Buffer[2];
 	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, dataGroup2Buffer[3],
 								  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
 								  sessionKeyMac);

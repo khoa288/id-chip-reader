@@ -33,6 +33,8 @@ int CharToInt(const char c) {
 		return c - '9' + 2;
 	} else if (c == '<') {
 		return 0;
+	} else {
+		return -1;
 	}
 }
 

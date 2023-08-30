@@ -7,7 +7,7 @@ if (POLICY CMP0141)
 endif()
 
 set(CMAKE_C_STANDARD 99)
-set(DEBUG 1 CACHE STRING "Debug level")
+set(DEBUG 0 CACHE STRING "Debug level")
 set(USE_SAM 0 CACHE STRING "Use SAM for card reading")
 set(USE_NFC 1 CACHE STRING "Use NFC for card reading")
 
