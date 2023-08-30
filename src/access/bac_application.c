@@ -52,13 +52,12 @@ long InitReader(void) {
 	long ret = InitializeReader();
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Initialize Reader.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
+		return ret;
 	}
 
 	// Anti collision
 	Delay(200);
-	return ret;
+	return APP_SUCCESS;
 }
 
 #if USE_NFC
@@ -66,43 +65,40 @@ long DetectCard(void) {
 	long ret = DetectFeliCaCard();
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Detect Card.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
+		return ret;
 	}
 	// Anti collision
 	Delay(200);
-	return ret;
+	return APP_SUCCESS;
 }
 #endif	// #if USE_NFC
 
 long SelectApplication(void) {
 	// (AID for BAC application)
 	// Expected response APDU : 0x90 || 0x00
-	static unsigned char selectApplicationCommand[] = {0x00, 0xA4, 0x04, 0x00, 0x07, 0xA0,
-													   0x00, 0x00, 0x02, 0x47, 0x10, 0x01};
+	const unsigned char selectApplicationCommand[] = {0x00, 0xA4, 0x04, 0x00, 0x07, 0xA0,
+													  0x00, 0x00, 0x02, 0x47, 0x10, 0x01};
 	unsigned char selectApplicationResponse[2];
 	unsigned long selectApplicationResponseLength = sizeof(selectApplicationResponse);
 	long ret = TransmitDataToCard(selectApplicationCommand, sizeof(selectApplicationCommand),
 								  selectApplicationResponse, &selectApplicationResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Select Application.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
+		return ret;
 	}
-	return ret;
+	return APP_SUCCESS;
 }
 
 long GetChallenge(unsigned char getChallengeResponse[10], int getChallengeResponseSize) {
 	// Expected response APDU: RND.IC (8 bytes) || 0x90 || 0x00
-	static unsigned char getChallengeCommand[] = {0x00, 0x84, 0x00, 0x00, 0x08};
+	const unsigned char getChallengeCommand[] = {0x00, 0x84, 0x00, 0x00, 0x08};
 	long ret = TransmitDataToCard(getChallengeCommand, sizeof(getChallengeCommand),
 								  getChallengeResponse, &getChallengeResponseSize);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Get Challenge.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
+		return ret;
 	}
-	return ret;
+	return APP_SUCCESS;
 }
 
 long ExternalAuthenticate(unsigned char getChallengeResponse[10],
@@ -159,8 +155,6 @@ long ExternalAuthenticate(unsigned char getChallengeResponse[10],
 						   externalAuthenticateResponse, &externalAuthenticateResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to External Authenticate.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return ret;
 	}
 
@@ -178,8 +172,6 @@ long ExternalAuthenticate(unsigned char getChallengeResponse[10],
 
 	if (memcmp(macIC, macCheckIC, 8)) {
 		printf("Invalid External Authenticate response.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return APP_ERROR;
 	}
 
@@ -192,8 +184,6 @@ long ExternalAuthenticate(unsigned char getChallengeResponse[10],
 	memcpy(randomNonceIFDCheck, &concatR[8], 8);
 	if (memcmp(randomNonceIFD, randomNonceIFDCheck, 8)) {
 		printf("Invalid Random Nonce Data received.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return APP_ERROR;
 	}
 
@@ -220,15 +210,24 @@ long ReadEFCOM(unsigned char sessionKeyEncrypt[16],
 			   unsigned char sendSequenceCounter[8]) {
 	// Construct protected APDU command to Select EF.COM
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x1E
-	static unsigned char selectEFCOMCmdData[2] = {0x01, 0x1E};
-	ProtectedSelectAPDU(selectEFCOMCmdData, sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	const unsigned char selectEFCOMCmdData[2] = {0x01, 0x1E};
+	int ret = ProtectedSelectAPDU(selectEFCOMCmdData, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Select EF.COM.\n");
+		return ret;
+	}
 
-	// Read Binary of first four bytes of EF.COM
+	// Read Binary 26 bytes of EF.COM
 	// Unprotected command APDU: 0x00, 0xB0, 0x00, 0x00, 0x04
-	static unsigned char readBinaryEFCOMCmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
+	const unsigned char readBinaryEFCOMCmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
 	unsigned char readBinaryEFCOMResponse[32];
-	ProtectedReadBinaryAPDU(readBinaryEFCOMCmdHeader, 0x1A, readBinaryEFCOMResponse,
-							sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	ret = ProtectedReadBinaryAPDU(readBinaryEFCOMCmdHeader, 0x1A, readBinaryEFCOMResponse,
+								  sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of EF.COM.\n");
+		return ret;
+	}
 
 #if DEBUG
 	printf("EF.COM: ");
@@ -260,16 +259,25 @@ long ReadDG1(unsigned char sessionKeyEncrypt[16],
 			 unsigned char sendSequenceCounter[8]) {
 	// Construct protected APDU command to Select DG1
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x01
-	static unsigned char selectDataGroup1CmdData[2] = {0x01, 0x01};
-	ProtectedSelectAPDU(selectDataGroup1CmdData, sendSequenceCounter, sessionKeyEncrypt,
-						sessionKeyMac);
+	const unsigned char selectDataGroup1CmdData[2] = {0x01, 0x01};
+	int ret = ProtectedSelectAPDU(selectDataGroup1CmdData, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Select DG1.\n");
+		return ret;
+	}
 
-	// Read Binary of first four bytes of DG1
+	// Read Binary of 95 bytes of DG1
 	// Unprotected command APDU: 0x00, 0xB0, 0x00, 0x00, 0x04
-	static unsigned char readBinaryDataGroup1CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
-	unsigned char readBinaryDataGroup1Response[96];	 // First 4 bytes of DG1 || 0x80 0x00 0x00 0x00
-	ProtectedReadBinaryAPDU(readBinaryDataGroup1CmdHeader, 0x5F, readBinaryDataGroup1Response,
-							sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	const unsigned char readBinaryDataGroup1CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
+	unsigned char readBinaryDataGroup1Response[96];	 // 95 bytes with padding
+	int ret =
+		ProtectedReadBinaryAPDU(readBinaryDataGroup1CmdHeader, 0x5F, readBinaryDataGroup1Response,
+								sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of DG1.\n");
+		return ret;
+	}
 
 #if DEBUG
 	printf("DG1: ");
@@ -329,9 +337,13 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 			 unsigned char imageFilePath[]) {
 	// Construct protected APDU command to Select DG2
 	// Unprotected command: 0x00, 0xA4, 0x02, 0x0C, 0x02, 0x01, 0x02
-	unsigned char selectDataGroup2CmdData[2] = {0x01, 0x02};
-	ProtectedSelectAPDU(selectDataGroup2CmdData, sendSequenceCounter, sessionKeyEncrypt,
-						sessionKeyMac);
+	const unsigned char selectDataGroup2CmdData[2] = {0x01, 0x02};
+	int ret = ProtectedSelectAPDU(selectDataGroup2CmdData, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Select DG2.\n");
+		return ret;
+	}
 
 	// Open Image file
 	FILE* ptr;
@@ -345,8 +357,14 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	unsigned char readBinaryDataGroup2CmdHeader[4] = {0x0C, 0xB0, 0x00, 0x00};
 	unsigned char tempDataGroup2Buffer[264],
 		dataGroup2Buffer[4];  // DG2 length = dataGroup2Buffer[2] * 16^2 + dataGroup2Buffer[3]
-	ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256, tempDataGroup2Buffer,
-							sendSequenceCounter, sessionKeyEncrypt, sessionKeyMac);
+	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256,
+								  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of DG2.\n");
+		fclose(ptr);
+		return ret;
+	}
 
 	// Find jpeg header
 	int jpegHeader = 0;
@@ -364,17 +382,27 @@ long ReadDG2(unsigned char sessionKeyEncrypt[16],
 	int indexDG2;
 	for (indexDG2 = 1; indexDG2 < dataGroup2Buffer[2]; indexDG2++) {
 		readBinaryDataGroup2CmdHeader[2] = indexDG2;
-		ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256,
-								tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
-								sessionKeyMac);
+		ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, (unsigned char)256,
+									  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
+									  sessionKeyMac);
+		if (ret != APP_SUCCESS) {
+			printf("Fail to Read Binary of DG2.\n");
+			fclose(ptr);
+			return ret;
+		}
 		fwrite(&tempDataGroup2Buffer[0], 256, 1, ptr);
 	}
 
 	// Read Binary last bytes of DG2
 	readBinaryDataGroup2CmdHeader[2] = indexDG2;
-	ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, dataGroup2Buffer[3],
-							tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
-							sessionKeyMac);
+	ret = ProtectedReadBinaryAPDU(readBinaryDataGroup2CmdHeader, dataGroup2Buffer[3],
+								  tempDataGroup2Buffer, sendSequenceCounter, sessionKeyEncrypt,
+								  sessionKeyMac);
+	if (ret != APP_SUCCESS) {
+		printf("Fail to Read Binary of DG2.\n");
+		fclose(ptr);
+		return ret;
+	}
 	fwrite(&tempDataGroup2Buffer[0], dataGroup2Buffer[3], 1, ptr);
 
 	// Close Image file

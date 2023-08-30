@@ -34,6 +34,22 @@ extern "C" {
  */
 long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[]);
 
+/*
+ * @brief Reads data with only the document number instead of MRZ information.
+ *
+ * Given the document number, this function derives the holder's birth year and test possible birth
+ * dates to find the correct one.
+ *
+ * @param[in] documentNumber The document number as an array of 9 unsigned chars.
+ * @param[out] imageFilePath The file path to the image file that will be created after reading data
+ * from the ID card chip.
+ *
+ * @return A long value representing the status code. APP_SUCCESS indicates successful reading of
+ * data from the ID card chip, otherwise an error code is returned.
+ */
+long ReadIdCardChipWithDocumentNumber(unsigned char documentNumber[9],
+									  unsigned char imageFilePath[]);
+
 #ifdef __cplusplus
 }
 #endif
