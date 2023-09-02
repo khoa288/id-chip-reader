@@ -69,7 +69,7 @@ The implementation instructions can be found in the [id_chip_reader_instruction.
 
 ## Demo
 
-![](doc/id-chip-reader-demo.mov)
+![](doc/id-chip-reader-demo.gif)
 
 ## License
 
