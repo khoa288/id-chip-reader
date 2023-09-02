@@ -85,10 +85,16 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <div class="title">ID Chip Reader </div>  </div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="md_README"></a> ID Chip Reader is a C/C++ library for reading Vietnamese Identification Card Chips. The library extracts personal information and the identity photo from the chip, following the instructions of Doc 9303 Machine Readable Travel Documents as specified by the International Civil Aviation Organization (ICAO).</p>
+<div class="textblock"><p><a class="anchor" id="md_README"></a> ID Chip Reader is a C library for reading Vietnamese Identification Card Chips. The library extracts data from the chip, following the instructions of Doc 9303 Machine Readable Travel Documents as specified by the International Civil Aviation Organization (ICAO).</p>
 <h1>Features</h1>
 <ul>
-<li>Extract basic personal details and identity photo from Vietnamese ID card chips using BAC (Basic Access Control)</li>
+<li>Extract data from Vietnamese Identification Card Chips using BAC (Basic Access Control), including:<ul>
+<li>EF.COM: Common's card information</li>
+<li>Data Group 1: MRZ information</li>
+<li>Data Group 2: Portrait image</li>
+<li>Data Group 13: Card ID number, Full name, Date of birth, Gender, Nationality, Ethnicity, Religion, Place of origin, Place of residence, Personal identification, Issued date, Expiration date, Father’s name, Mother’s name, and old ID number</li>
+</ul>
+</li>
 <li>Support for SAM and NFC card reading</li>
 </ul>
 <h1>Requirements</h1>
@@ -98,7 +104,7 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>Reader supports SAM or NFC card reading</li>
 </ul>
 <h1>Building and Installation</h1>
-<p>To build and install the ID Chip Reader library, follow these steps:</p>
+<p>To build and install the library, follow these steps:</p>
 <ol type="1">
 <li>Clone the repository:</li>
 </ol>
@@ -116,25 +122,21 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <li>Build and install the library:</li>
 </ol>
 <div class="fragment"><div class="line">make &amp;&amp; sudo make install</div>
-</div><!-- fragment --><ol type="1">
-<li>(Optional) Build examples:</li>
-</ol>
-<p>Enable <code>ID_CHIP_READER_EXAMPLES</code> option in <code>CMakeLists.txt</code> or pass <code>-DID_CHIP_READER_EXAMPLES=ON</code> during configuration step.</p>
-<h1>Usage</h1>
-<p>Here's an example of how to use the ID Chip Reader library in your own project:</p>
+</div><!-- fragment --><h1>Usage</h1>
+<p>Here's an example of how to use the ID Chip Reader library:</p>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="chip__reader_8h.html" title="Header file for chip reader functions.">chip_reader.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code" href="id__chip__reader__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
 <div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> mrzInformation[] = <span class="stringliteral">&quot;&lt;MRZ_INFORMATION&gt;&quot;</span>;</div>
 <div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> imageFilePath[]  = <span class="stringliteral">&quot;&lt;IMAGE_FILE_PATH&gt;&quot;</span>;</div>
-<div class="line"> </div>
 <div class="line">    <span class="keywordtype">long</span> res = <a class="code" href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8" title="Reads data from an ID card chip using Basic Access Control (BAC) protocol.">ReadIdCardChip</a>(mrzInformation, imageFilePath);</div>
-<div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> res;</div>
 <div class="line">}</div>
 </div><!-- fragment --><p>Replace <code>&lt;MRZ_INFORMATION&gt;</code> with the MRZ information string obtained from the ID card, and <code>&lt;IMAGE_FILE_PATH&gt;</code> with the file path where you want to save the extracted identity photo.</p>
 <h1>Documentation</h1>
 <p>The implementation instructions can be found in the <a href="doc/id-chip-reader-instruction.pdf">id_chip_reader_instruction.pdf</a>.</p>
+<h1>Demo</h1>
+<p><img src="doc/id-chip-reader-demo.mov" alt="" class="inline"/></p>
 <h1>License</h1>
 <p>This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. </p>
 </div></div><!-- PageDoc -->
