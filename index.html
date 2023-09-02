@@ -122,19 +122,16 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 <p>Enable <code>ID_CHIP_READER_EXAMPLES</code> option in <code>CMakeLists.txt</code> or pass <code>-DID_CHIP_READER_EXAMPLES=ON</code> during configuration step.</p>
 <h1>Usage</h1>
 <p>Here's an example of how to use the ID Chip Reader library in your own project:</p>
-<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="chip__reader_8h.html">chip_reader.h</a>&gt;</span></div>
+<div class="fragment"><div class="line"><span class="preprocessor">#include &lt;<a class="code" href="chip__reader_8h.html" title="Header file for chip reader functions.">chip_reader.h</a>&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a class="code" href="id__chip__reader__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
 <div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> mrzInformation[] = <span class="stringliteral">&quot;&lt;MRZ_INFORMATION&gt;&quot;</span>;</div>
 <div class="line">    <span class="keywordtype">unsigned</span> <span class="keywordtype">char</span> imageFilePath[]  = <span class="stringliteral">&quot;&lt;IMAGE_FILE_PATH&gt;&quot;</span>;</div>
 <div class="line"> </div>
-<div class="line">    <span class="keywordtype">long</span> res = <a class="code" href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a>(mrzInformation, imageFilePath);</div>
+<div class="line">    <span class="keywordtype">long</span> res = <a class="code" href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8" title="Reads data from an ID card chip using Basic Access Control (BAC) protocol.">ReadIdCardChip</a>(mrzInformation, imageFilePath);</div>
 <div class="line"> </div>
 <div class="line">    <span class="keywordflow">return</span> res;</div>
 <div class="line">}</div>
-<div class="ttc" id="achip__reader_8h_html"><div class="ttname"><a href="chip__reader_8h.html">chip_reader.h</a></div><div class="ttdoc">Header file for chip reader functions.</div></div>
-<div class="ttc" id="achip__reader_8h_html_a7fccc6ccae7dfa6fd54fb15c19d4e6c8"><div class="ttname"><a href="chip__reader_8h.html#a7fccc6ccae7dfa6fd54fb15c19d4e6c8">ReadIdCardChip</a></div><div class="ttdeci">long ReadIdCardChip(unsigned char mrzInformation[], unsigned char imageFilePath[])</div><div class="ttdoc">Reads data from an ID card chip using Basic Access Control (BAC) protocol.</div><div class="ttdef"><b>Definition:</b> chip_reader.c:16</div></div>
-<div class="ttc" id="aid__chip__reader__example_8c_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="id__chip__reader__example_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> id_chip_reader_example.c:9</div></div>
 </div><!-- fragment --><p>Replace <code>&lt;MRZ_INFORMATION&gt;</code> with the MRZ information string obtained from the ID card, and <code>&lt;IMAGE_FILE_PATH&gt;</code> with the file path where you want to save the extracted identity photo.</p>
 <h1>Documentation</h1>
 <p>The implementation instructions can be found in the <a href="doc/id-chip-reader-instruction.pdf">id_chip_reader_instruction.pdf</a>.</p>
