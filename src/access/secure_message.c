@@ -88,8 +88,6 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 								 &protectedResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Send protected APDU.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return ret;
 	}
 
@@ -110,8 +108,6 @@ int ProtectedSelectAPDU(unsigned char cmdData[2],
 	// Compare CC' with data of DO'8E' of RAPDU
 	if (memcmp(macCheck, &protectedResponse[6], 8)) {
 		printf("Invalid Response APDU.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return APP_ERROR;
 	}
 	return APP_SUCCESS;
@@ -168,8 +164,6 @@ int ProtectedReadBinaryAPDU(unsigned char cmdHeader[4],
 		TransmitDataToCard(protectedAPDU, sizeof(protectedAPDU), res, &protectedResponseLength);
 	if (ret != APP_SUCCESS) {
 		printf("Fail to Send protected APDU.\n");
-		DisconnectFeliCaCard();
-		DisconnectReader();
 		return ret;
 	}
 

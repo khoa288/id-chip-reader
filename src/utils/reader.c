@@ -15,16 +15,14 @@
 
 #include <utils/reader.h>
 
-// PC/SC connection const
+// PC/SC connection constants
 static const unsigned char PASORI_PCSC_NO_ERROR_HEADER[5] = {0xC0, 0x03, 0x00, 0x90, 0x00};
 
 // Reader name of PaSoRi
 static wchar_t CARD_IF_PASORI[] = L"Sony FeliCa Port/PaSoRi 3.0 0";
 static int isCancelDetected		= 0;
 // Reader name of Contact Card reader (depends on driver version)
-// static wchar_t SAM_IF_GEM[] = L"Gemalto USB Smart Card Reader 0";
 static wchar_t SAM_IF_GEM[] = L"Gemalto USB SmartCard Reader 0";
-// static wchar_t SAM_IF_GEM[] = L"Gemplus USB SmartCard Reader 0";
 
 // PC/SC context
 SCARDCONTEXT hContext;
@@ -68,12 +66,12 @@ long InitializeReader(void) {
 
 	SCardFreeMemory(hContext, mszReaders);
 
-#if USE_SAM && !USE_NFC
+#if USE_SAM
 	// Connect to SAM interface
 	printf("Connect SAM\n");
 	_ret = SCardConnect(hContext, SAM_IF_GEM, SCARD_SHARE_SHARED, SCARD_PROTOCOL_T1, &hCardSAM,
 						&dwActProtocolSAM);
-#endif	// #if USE_SAM && !USE_NFC
+#endif	// #if USE_SAM
 
 	if (_ret != SCARD_S_SUCCESS) {
 		printf(" -> Error\n");
