@@ -6,6 +6,7 @@ var util_8c =
     [ "Delay", "util_8c.html#a0f42053ae047dacc639c1771fe5fe074", null ],
     [ "ExpirationYearCalculate", "util_8c.html#a14a836bb57f7878b2dd2396a8d33b885", null ],
     [ "IntToChar", "util_8c.html#ad872d6330a7c86b097dbf6b271972d9f", null ],
+    [ "IsValidDate", "util_8c.html#a0ded81dcc0bc3258e841c29e2767673d", null ],
     [ "MrzInformationGenerate", "util_8c.html#a95c2b3bbc533a6995b707ce9f821a30b", null ],
     [ "PadByteArray", "util_8c.html#a069d09e19d4f7c18cc41ce28ddf04ff5", null ],
     [ "RandomNonceGenerate", "util_8c.html#a3bad6dc7f3cc66c556b920bd8fbedcbe", null ],

@@ -7,6 +7,7 @@ var util_8h =
     [ "Delay", "util_8h.html#a0f42053ae047dacc639c1771fe5fe074", null ],
     [ "ExpirationYearCalculate", "util_8h.html#a14a836bb57f7878b2dd2396a8d33b885", null ],
     [ "IntToChar", "util_8h.html#ad872d6330a7c86b097dbf6b271972d9f", null ],
+    [ "IsValidDate", "util_8h.html#a0ded81dcc0bc3258e841c29e2767673d", null ],
     [ "MrzInformationGenerate", "util_8h.html#a95c2b3bbc533a6995b707ce9f821a30b", null ],
     [ "PadByteArray", "util_8h.html#a069d09e19d4f7c18cc41ce28ddf04ff5", null ],
     [ "RandomNonceGenerate", "util_8h.html#a3d9b3bdc8b5f99eebe5a19b6a5dc0a8b", null ]

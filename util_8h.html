@@ -125,6 +125,9 @@ Functions</h2></td></tr>
 <tr class="memitem:a847af9c944a34795639d0c8762dce122"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a847af9c944a34795639d0c8762dce122">CharToYear</a> (const unsigned char year[2], const int currentYear)</td></tr>
 <tr class="memdesc:a847af9c944a34795639d0c8762dce122"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts a string of 2 characters to an integer representing a year.  <a href="util_8h.html#a847af9c944a34795639d0c8762dce122">More...</a><br /></td></tr>
 <tr class="separator:a847af9c944a34795639d0c8762dce122"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ded81dcc0bc3258e841c29e2767673d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a0ded81dcc0bc3258e841c29e2767673d">IsValidDate</a> (int day, int month)</td></tr>
+<tr class="memdesc:a0ded81dcc0bc3258e841c29e2767673d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Checks if a date is valid.  <a href="util_8h.html#a0ded81dcc0bc3258e841c29e2767673d">More...</a><br /></td></tr>
+<tr class="separator:a0ded81dcc0bc3258e841c29e2767673d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95c2b3bbc533a6995b707ce9f821a30b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="util_8h.html#a95c2b3bbc533a6995b707ce9f821a30b">MrzInformationGenerate</a> (const unsigned char documentNumber[9], const unsigned char birthDate[4], unsigned char mrzInformation[24], int currentYear)</td></tr>
 <tr class="memdesc:a95c2b3bbc533a6995b707ce9f821a30b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generates the MRZ information of a document.  <a href="util_8h.html#a95c2b3bbc533a6995b707ce9f821a30b">More...</a><br /></td></tr>
 <tr class="separator:a95c2b3bbc533a6995b707ce9f821a30b"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -339,6 +342,44 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section return"><dt>Returns</dt><dd>The character value of the integer. </dd></dl>
+
+</div>
+</div>
+<a id="a0ded81dcc0bc3258e841c29e2767673d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ded81dcc0bc3258e841c29e2767673d">&#9670;&nbsp;</a></span>IsValidDate()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int IsValidDate </td>
+          <td>(</td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>day</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">int&#160;</td>
+          <td class="paramname"><em>month</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Checks if a date is valid. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">day</td><td>The day of the date. </td></tr>
+    <tr><td class="paramname">month</td><td>The month of the date. </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the date is valid, 0 otherwise. </dd></dl>
 
 </div>
 </div>
