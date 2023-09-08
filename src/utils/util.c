@@ -79,6 +79,25 @@ void YearToChar(const int year, unsigned char yearChar[2]) {
 	memset(&yearChar[1], IntToChar(year % 10), 1);
 }
 
+int IsValidDate(int day, int month) {
+	if (month < 1 || month > 12) {
+		return 0;
+	}
+	if (day < 1 || day > 31) {
+		return 0;
+	}
+	if (month == 2) {
+		if (day > 29) {
+			return 0;
+		}
+	} else if (month == 4 || month == 6 || month == 9 || month == 11) {
+		if (day > 30) {
+			return 0;
+		}
+	}
+	return 1;
+}
+
 void MrzInformationGenerate(const unsigned char documentNumber[9],
 							const unsigned char birthDate[4],
 							unsigned char mrzInformation[24],

@@ -71,6 +71,14 @@ int ExpirationYearCalculate(const int birthYear, const int currentYear);
 int CharToYear(const unsigned char year[2], const int currentYear);
 
 /**
+ * @brief Checks if a date is valid.
+ * @param day The day of the date.
+ * @param month The month of the date.
+ * @return 1 if the date is valid, 0 otherwise.
+ */
+int IsValidDate(int day, int month);
+
+/**
  * @brief Generates the MRZ information of a document.
  * @param documentNumber Pointer to an unsigned char array containing the document number.
  * @param birthDate Pointer to an unsigned char array containing the birth date in YYMMDD format.

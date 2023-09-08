@@ -95,8 +95,11 @@ long ReadIdCardChipWithDocumentNumber(unsigned char documentNumber[9],
 		goto end;
 	}
 
-	for (int month = 8; month <= 8; month++) {
+	for (int month = 1; month <= 12; month++) {
 		for (int day = 1; day <= 31; day++) {
+			if (!IsValidDate(day, month)) {
+				continue;
+			}
 			unsigned char getChallengeResponse[10];
 			GetChallenge(getChallengeResponse, sizeof(getChallengeResponse));
 			unsigned char mrzInformation[24];
